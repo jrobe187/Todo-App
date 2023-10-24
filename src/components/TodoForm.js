@@ -1,7 +1,14 @@
-  import React, {useState} from 'react'
+  import React, {useState, useEffect, useRef} from 'react'
   
   function TodoForm(props) {
     const [input, setInput] = useState('');
+
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        inputRef.current.focus()
+    })
+
 
     const handleChange = e => {
         setInput(e.target.value);
@@ -14,17 +21,20 @@
             id: Math.floor(Math.random() * 99999),
             text: input
         });
+        
         setInput('');
     };
 
     return (
       <form className='todo-form' onSubmit={handleSubmit}>
-        <input type="type" 
+        <input 
+        type="type" 
         placeholder="Add a todo" 
         value={input}
         name="text"
         className="todo-input"
         onChange={handleChange}
+        ref={inputRef}
         />
         <button className='todo-button'>Add todo</button>   
       </form>
